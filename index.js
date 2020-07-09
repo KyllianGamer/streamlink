@@ -15,7 +15,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = process.env.client_id; // Your client id
 var client_secret = process.env.client_secret; // Your secret
-var redirect_uri = 'http://streamlinkpixel.herokuapp.com/callback'; // Your redirect uri
+var redirect_uri = 'https://streamlinkpixel.herokuapp.com/callback'; // Your redirect uri
 var access_token;
 
 /**
