@@ -155,13 +155,14 @@ app.get('/skip-request', function(req, res) {
     }
   });*/
   try {
-    void fetch
-      .post(`https://api.spotify.com/v1/me/player/next`)
-      .set([
-          ['Accept', 'application/json'],
-          ['Content-Type', 'application/json'],
-          ['Authorization', `Bearer ${access_token}`]
-      ]);
+    await fetch('https://api.spotify.com/v1/me/player/next', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${access_token}`
+      }
+    });
     } catch (e) {
       if (e) console.log(e);
     }
