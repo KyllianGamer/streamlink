@@ -41,7 +41,7 @@ async function onMessageHandler (target, context, msg, self) {
   const commandName = msg.trim();
   if (commandName === "!skip") {
     if (access_token) {
-      const data = await fetch.get('http://streamlinkpixel.herokuapp.com/mods-api/channels/PixelPAVL').toJSON;
+      const data = await fetch.get('http://streamlinkpixel.herokuapp.com/mods-api/channels/PixelPAVL').toJSON();
       console.log(data);
       if (!data.moderators.includes(target.substr(1)) && target.substr(1) != 'pixelpavl') return;
       SkipSong();
