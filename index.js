@@ -10,6 +10,40 @@ var client_secret = process.env.client_secret; // Your secret
 var redirect_uri = 'http://streamlinkpixel.herokuapp.com/callback'; // Your redirect uri
 var access_token;
 
+const tmi = require('tmi.js');
+
+const opts = {
+  identity: {
+    username: 'SoundLink',
+    password: 'oauth:kwt7u7pofu3fci81cpfbz731imkniw'
+  },
+  channels: [
+    "PixelPAVL",
+    "KyllianGamer"
+  ]
+};
+const client = new tmi.client(opts);
+
+client.on('message', onMessageHandler);
+client.connect();
+
+const SkipSong = async function() {
+  await fetch.post('https://api.spotify.com/v1/me/player/next')
+    .set([
+      ['Accept', 'application/json'],
+      ['Content-Type', 'application/json'],
+      ['Authorization', `Bearer ${access_token}`]
+    ]);
+}
+
+function onMessageHandler (target, context, msg, self) {
+  if (self) { return; }
+  const commandName = msg.trim();
+  if (commandName === "!skip") {
+    if (access_token) SkipSong();
+  }
+}
+
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -139,29 +173,8 @@ app.get('/skip-request', async function(req, res) {
 
   console.log("skip");
 
-  /*var skipOptions = {
-    url: 'https://api.spotify.com/v1/me/player/next',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${access_token}`
-    }
-  }
-
-  request.post(skipOptions, function(error, response, body) {
-    if (error || response.statusCode != 204) {
-      console.log("FAIL");
-      console.error;
-    }
-  });*/
-  await fetch.post('https://api.spotify.com/v1/me/player/next')
-    .set([
-      ['Accept', 'application/json'],
-      ['Content-Type', 'application/json'],
-      ['Authorization', `Bearer ${access_token}`]
-    ]);
+  if (access_token) SkipSong();
 
 });
-
 console.log('Listening on 8888');
 app.listen(process.env.PORT || 8888);
