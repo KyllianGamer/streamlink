@@ -41,9 +41,7 @@ async function onMessageHandler (target, context, msg, self) {
   const commandName = msg.trim();
   if (commandName === "!skip") {
     if (access_token) {
-      const data = await fetch.get('http://streamlinkpixel.herokuapp.com/mods-api/channels/PixelPAVL').toJSON();
-      console.log(data);
-      if (!data.body.moderators.includes(target.substr(1)) && target.substr(1) != 'pixelpavl') return;
+      if (!context.mod) return;
       SkipSong();
     }   
   }
@@ -180,32 +178,6 @@ app.get('/skip-request', async function(req, res) {
 
   if (access_token) SkipSong();
 
-});
-
-app.get('/mods-api/channels/:channel', (req, res) => {
-	if(client.readyState() !== 'OPEN') {
-		return res.json({
-			error: 'Service Unavailable',
-			status: 503,
-			message: 'Not ready'
-		});
-	}
-	let channel = req.params.channel.toLowerCase();
-	client.mods(channel)
-	.then(moderators => {
-		res.json({
-			channel,
-			moderators
-    });
-    console.log(moderators);
-	})
-	.catch(err => {
-		res.json({
-			error: 'Internal Server Error',
-			status: 500,
-			message: 'Some error occurred'
-		})
-	});
 });
 
 app.get('/revive',(req,res) => {
