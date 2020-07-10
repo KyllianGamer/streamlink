@@ -154,18 +154,12 @@ app.get('/skip-request', function(req, res) {
       console.error;
     }
   });*/
-  try {
-    new fetch('https://api.spotify.com/v1/me/player/next', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${access_token}`
-      }
-    });
-    } catch (e) {
-      if (e) console.log(e);
-    }
+  const res = await fetch.post('https://api.spotify.com/v1/me/player/next')
+    .set([
+      ['Accept', 'application/json'],
+      ['Content-Type', 'application/json'],
+      ['Authorization', `Bearer ${token}`]
+    ]);
 
 });
 
