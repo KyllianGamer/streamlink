@@ -42,8 +42,11 @@ function onMessageHandler (target, context, msg, self) {
   console.log(2);
   const commandName = msg.trim();
   if (commandName === "!skip") {
-    if (access_token) SkipSong();
     console.log(3);
+    if (access_token) {
+      SkipSong();
+      console.log(4);
+    }   
   }
 }
 
