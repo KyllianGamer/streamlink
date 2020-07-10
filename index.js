@@ -36,16 +36,14 @@ const SkipSong = async function() {
     ]);
 }
 
-function onMessageHandler (target, context, msg, self) {
-  console.log(1);
+async function onMessageHandler (target, context, msg, self) {
   if (self) { return; }
-  console.log(2);
   const commandName = msg.trim();
   if (commandName === "!skip") {
-    console.log(3);
     if (access_token) {
+      const data = await fetch.get('http://streamlinkpixel.herokuapp.com/mods-api/channels/PixelPAVL').toJSON;
+      if (!data.moderators.includes(target.substr(1)) && target.substr(1) != 'pixelpavl') return;
       SkipSong();
-      console.log(4);
     }   
   }
 }
@@ -182,5 +180,32 @@ app.get('/skip-request', async function(req, res) {
   if (access_token) SkipSong();
 
 });
+
+app.get('/mods-api/channels/:channel', (req, res) => {
+	if(client.readyState() !== 'OPEN') {
+		return res.json({
+			error: 'Service Unavailable',
+			status: 503,
+			message: 'Not ready'
+		});
+	}
+	let channel = req.params.channel.toLowerCase();
+	client.mods(channel)
+	.then(moderators => {
+		res.json({
+			channel,
+			moderators
+    });
+    console.log(moderators);
+	})
+	.catch(err => {
+		res.json({
+			error: 'Internal Server Error',
+			status: 500,
+			message: 'Some error occurred'
+		})
+	});
+});
+
 console.log('Listening on 8888');
 app.listen(process.env.PORT || 8888);
