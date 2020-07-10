@@ -208,5 +208,9 @@ app.get('/mods-api/channels/:channel', (req, res) => {
 	});
 });
 
+app.get('/revive',(req,res) => {
+  return res.send('revive');
+  });
+
 console.log('Listening on 8888');
 app.listen(process.env.PORT || 8888);
