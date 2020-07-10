@@ -15,7 +15,7 @@ const tmi = require('tmi.js');
 const opts = {
   identity: {
     username: 'SoundLink',
-    password: 'oauth:kwt7u7pofu3fci81cpfbz731imkniw'
+    password: process.env.password
   },
   channels: [
     "PixelPAVL",
