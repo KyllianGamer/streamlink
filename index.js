@@ -158,7 +158,7 @@ app.get('/skip-request', async function(req, res) {
     .set([
       ['Accept', 'application/json'],
       ['Content-Type', 'application/json'],
-      ['Authorization', `Bearer ${token}`]
+      ['Authorization', `Bearer ${access_token}`]
     ]);
 
 });
