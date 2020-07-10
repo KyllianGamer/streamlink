@@ -12,6 +12,8 @@ var request = require('request'); // "Request" library
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+import fetch from 'chainfetch';
+import { stringify } from '@favware/querystring';
 
 var client_id = process.env.client_id; // Your client id
 var client_secret = process.env.client_secret; // Your secret
@@ -147,7 +149,7 @@ app.get('/skip-request', function(req, res) {
 
   console.log("skip");
 
-  var skipOptions = {
+  /*var skipOptions = {
     url: 'https://api.spotify.com/v1/me/player/next',
     headers: {
       'Accept': 'application/json',
@@ -161,7 +163,15 @@ app.get('/skip-request', function(req, res) {
       console.log("FAIL");
       console.error;
     }
-  });
+  });*/
+
+  void fetch
+    .post(`https://api.spotify.com/v1/me/player/next`)
+    .set([
+        ['Accept', 'application/json'],
+        ['Content-Type', 'application/json'],
+        ['Authorization', `Bearer ${access_token}`]
+    ]);
 
 });
 
