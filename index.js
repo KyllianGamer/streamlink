@@ -135,7 +135,7 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-app.get('/skip-request', function(req, res) {
+app.get('/skip-request', async function(req, res) {
 
   console.log("skip");
 
@@ -154,7 +154,7 @@ app.get('/skip-request', function(req, res) {
       console.error;
     }
   });*/
-  const res = await fetch.post('https://api.spotify.com/v1/me/player/next')
+  await fetch.post('https://api.spotify.com/v1/me/player/next')
     .set([
       ['Accept', 'application/json'],
       ['Content-Type', 'application/json'],
