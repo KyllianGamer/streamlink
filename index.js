@@ -155,7 +155,7 @@ app.get('/skip-request', function(req, res) {
     }
   });*/
   try {
-    await fetch('https://api.spotify.com/v1/me/player/next', {
+    fetch('https://api.spotify.com/v1/me/player/next', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
