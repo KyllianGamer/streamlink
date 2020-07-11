@@ -180,5 +180,27 @@ app.get('/skip-request', async function(req, res) {
 
 });
 
+app.get('/revive', async function(req, res) {
+
+  var authOptions = {
+    url: '',
+    headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+    form: {
+      grant_type: 'refresh_token',
+      refresh_token: refresh_token
+    },
+    json: true
+  };
+
+  await fetch.post('https://accounts.spotify.com/api/token')
+    .set([
+      ['Authorization', 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))]
+    ]);
+
+    console.log(res.headers);
+
+    return res.send('Revive');
+});
+
 console.log('Listening on 8888');
 app.listen(process.env.PORT || 8888);
