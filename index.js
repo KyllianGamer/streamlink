@@ -183,7 +183,7 @@ app.get('/skip-request', async function(req, res) {
 app.get('/revive', async function(req, res) {
 
   var authOptions = {
-    url: '',
+    url: 'https://accounts.spotify.com/api/token',
     headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
     form: {
       grant_type: 'refresh_token',
@@ -192,13 +192,14 @@ app.get('/revive', async function(req, res) {
     json: true
   };
 
-  await fetch.post('https://accounts.spotify.com/api/token')
-    .set([
-      ['Authorization', 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))]
-    ]);
-
-    console.log(res.headers);
-
+  request.post(authOptions, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      access_token = body.access_token;
+      res.send({
+        'access_token': access_token
+      });
+    }
+  });
     return res.send('Revive');
 });
 
