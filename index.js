@@ -195,9 +195,6 @@ app.get('/revive', async function(req, res) {
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
       access_token = body.access_token;
-      res.send({
-        'access_token': access_token
-      });
     }
   });
     return res.send('Revive');
