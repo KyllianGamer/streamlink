@@ -9,6 +9,7 @@ var client_id = process.env.client_id; // Your client id
 var client_secret = process.env.client_secret; // Your secret
 var redirect_uri = 'http://streamlinkpixel.herokuapp.com/callback'; // Your redirect uri
 var access_token;
+var refresh_token;
 
 const tmi = require('tmi.js');
 
@@ -130,7 +131,7 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          console.log(body);
+          //console.log(body);
         });
 
         // we can also pass the token to the browser to make requests from there
@@ -151,7 +152,6 @@ app.get('/callback', function(req, res) {
 
 app.get('/refresh_token', function(req, res) {
   // requesting access token from refresh token
-  var refresh_token = req.query.refresh_token;
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
@@ -179,10 +179,6 @@ app.get('/skip-request', async function(req, res) {
   if (access_token) SkipSong();
 
 });
-
-app.get('/revive',(req,res) => {
-  return res.send('revive');
-  });
 
 console.log('Listening on 8888');
 app.listen(process.env.PORT || 8888);
