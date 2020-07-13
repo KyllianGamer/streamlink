@@ -14,8 +14,11 @@ var refresh_token;
 const tmi = require('tmi.js');
 
 const opts = {
+  connection: {
+    reconnect: true
+  },
   identity: {
-    username: 'SoundLink',
+    username: 'soundlinktwitch',
     password: process.env.password
   },
   channels: [
