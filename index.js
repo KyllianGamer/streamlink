@@ -41,22 +41,12 @@ const SkipSong = async function() {
 }
 
 const GetSong = async function() {
-  /*await fetch.get('https://api.spotify.com/v1/me/player/next')
+  await fetch.get('https://api.spotify.com/v1/me/player/currently-playing')
     .set([
       ['Accept', 'application/json'],
       ['Content-Type', 'application/json'],
       ['Authorization', `Bearer ${access_token}`]
-    ]).then()*/
-
-    fetch('https://api.spotify.com/v1/me/player/currently-playing', {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        'Authorization': `Bearer ${access_token}`
-      },
-      credentials: "same-origin"
-    }).then(function(response) {
+    ]).then(function(response) {
       /*response.status     //=> number 100–599
       response.statusText //=> String
       response.headers    //=> Headers
