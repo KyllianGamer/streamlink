@@ -32,12 +32,39 @@ client.on('message', onMessageHandler);
 client.connect();
 
 const SkipSong = async function() {
-  await fetch.post('https://api.spotify.com/v1/me/player/next')
+  await fetch.post('https://api.spotify.com/v1/me/player/currently-playing')
     .set([
       ['Accept', 'application/json'],
       ['Content-Type', 'application/json'],
       ['Authorization', `Bearer ${access_token}`]
     ]);
+}
+
+const GetSong = async function() {
+  await fetch.get('https://api.spotify.com/v1/me/player/next')
+    .set([
+      ['Accept', 'application/json'],
+      ['Content-Type', 'application/json'],
+      ['Authorization', `Bearer ${access_token}`]
+    ]).then()
+
+    fetch('https://api.spotify.com/v1/me/player/next', {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        'Authorization': `Bearer ${access_token}`
+      },
+      credentials: "same-origin"
+    }).then(function(response) {
+      /*response.status     //=> number 100–599
+      response.statusText //=> String
+      response.headers    //=> Headers
+      response.url        //=> String */
+      console.log(response.headers);
+    }, function(error) {
+      error.message //=> String
+    })
 }
 
 async function onMessageHandler (target, context, msg, self) {
@@ -48,6 +75,11 @@ async function onMessageHandler (target, context, msg, self) {
       if (!context.mod) return;
       SkipSong();
     }   
+  } else if (commandName === "!song") {
+    if (access_token) {
+      if (!context.mod) return;
+      GetSong();
+    } 
   }
 }
 
