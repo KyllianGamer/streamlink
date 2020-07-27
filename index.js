@@ -32,7 +32,7 @@ client.on('message', onMessageHandler);
 client.connect();
 
 const SkipSong = async function() {
-  await fetch.post('https://api.spotify.com/v1/me/player/currently-playing')
+  await fetch.post('https://api.spotify.com/v1/me/player/next')
     .set([
       ['Accept', 'application/json'],
       ['Content-Type', 'application/json'],
@@ -41,14 +41,14 @@ const SkipSong = async function() {
 }
 
 const GetSong = async function() {
-  await fetch.get('https://api.spotify.com/v1/me/player/next')
+  /*await fetch.get('https://api.spotify.com/v1/me/player/next')
     .set([
       ['Accept', 'application/json'],
       ['Content-Type', 'application/json'],
       ['Authorization', `Bearer ${access_token}`]
-    ]).then()
+    ]).then()*/
 
-    fetch('https://api.spotify.com/v1/me/player/next', {
+    fetch('https://api.spotify.com/v1/me/player/currently-playing', {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
