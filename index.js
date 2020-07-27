@@ -52,7 +52,13 @@ const GetSong = async function() {
       response.headers    //=> Headers
       response.url        //=> String */
       console.log(response.body.item.name);
-      client.say("PixelPAVL", "Currently playing: " + response.body.item.name);
+      let artists = "";
+      for (var i = 0; i < response.body.item.artists.length; i++) {
+        if (i === response.body.item.artists.length-1) {
+          artists = artists + response.body.item.artists[i];
+        } else { artists = artists + response.body.item.artists[i] + ", " }
+      }
+      client.say("PixelPAVL", "Currently playing: " + response.body.item.name + " by: " + artists);
     }, function(error) {
       error.message //=> String
     })
@@ -68,7 +74,6 @@ async function onMessageHandler (target, context, msg, self) {
     }   
   } else if (commandName === "!song") {
     if (access_token) {
-      if (!context.mod) return;
       GetSong();
     } 
   }
