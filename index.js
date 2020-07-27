@@ -58,8 +58,7 @@ const GetSong = async function() {
           artists = artists + response.body.item.artists[i]["name"];
         } else { artists = artists + response.body.item.artists[i]["name"] + ", " }
       }
-      //client.say("PixelPAVL", "Currently playing: " + response.body.item.name + " by: " + artists);
-      console.log(artists);
+      client.say("PixelPAVL", "Currently playing: " + response.body.item.name + " by: " + artists);
     }, function(error) {
       error.message //=> String
     })
