@@ -51,7 +51,8 @@ const GetSong = async function() {
       response.statusText //=> String
       response.headers    //=> Headers
       response.url        //=> String */
-      console.log(response);
+      console.log(response.body.item.name);
+      client.say("PixelPAVL", "Currently playing: " + response.body.item.name);
     }, function(error) {
       error.message //=> String
     })
