@@ -51,7 +51,7 @@ const GetSong = async function() {
       response.statusText //=> String
       response.headers    //=> Headers
       response.url        //=> String */
-      console.log(response.headers);
+      console.log(response);
     }, function(error) {
       error.message //=> String
     })
