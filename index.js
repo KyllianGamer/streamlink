@@ -55,10 +55,11 @@ const GetSong = async function() {
       let artists = "";
       for (var i = 0; i < response.body.item.artists.length; i++) {
         if (i === response.body.item.artists.length-1) {
-          artists = artists + JSON.stringify(response.body.item.artists[i]);
-        } else { artists = artists + JSON.stringify(response.body.item.artists[i]) + ", " }
+          artists = artists + response.body.item.artists[i]["name"];
+        } else { artists = artists + response.body.item.artists[i]["name"] + ", " }
       }
-      client.say("PixelPAVL", "Currently playing: " + response.body.item.name + " by: " + artists);
+      //client.say("PixelPAVL", "Currently playing: " + response.body.item.name + " by: " + artists);
+      console.log(artists);
     }, function(error) {
       error.message //=> String
     })
